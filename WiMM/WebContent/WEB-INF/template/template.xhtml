@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="pageTitle">Where is My Money</ui:insert></title>
+	
+	<h:outputStylesheet library="css" name="bootstrap-responsive.min.css" />
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js"
+		name="vendor/modernizr.min.js" />
+	<h:outputScript library="js" name="vendor/bootstrap.min.js" />
+	<h:outputScript library="js" name="main.js" />
+
+	<meta charset="utf-8" />
+
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width" />
+	<style>
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+</style>
+
+</h:head>
+<h:body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand" href="#"> <ui:insert name="pageHeader">Default header</ui:insert>
+				</a>
+				<div class="nav-collapse collapse">
+					<ui:include src="meni.xhtml" />
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+
+		<!-- Main hero unit for a primary marketing message or call to action -->
+		<ui:insert name="content">Default content</ui:insert>
+
+		<!-- Example row of columns -->
+		<hr />
+		<footer>
+			<p>WiMM 2012</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
+</h:body>
+</html>

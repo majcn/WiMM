@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+</h:head>
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="pageHeader">WiMM</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h:dataTable value="#{listCustomerBean.allCustomers}" var="customer">
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:panelGroup
+						rendered="#{!(listCustomerBean.edit and listCustomerBean.selectedCustomer.id==customer.id)}">
+	   					#{customer.name}
+	   				</h:panelGroup>
+					<h:inputText value="#{listCustomerBean.name}" size="10"
+						rendered="#{listCustomerBean.edit and listCustomerBean.selectedCustomer.id==customer.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Surname</f:facet>
+					<h:panelGroup
+						rendered="#{!(listCustomerBean.edit and listCustomerBean.selectedCustomer.id==customer.id)}">
+	   					#{customer.surname}
+	   				</h:panelGroup>
+					<h:inputText value="#{listCustomerBean.surname}" size="10"
+						rendered="#{listCustomerBean.edit and listCustomerBean.selectedCustomer.id==customer.id}" />
+				</h:column>
+
+				<h:column>
+					<h:panelGroup
+						rendered="#{!(listCustomerBean.edit and listCustomerBean.selectedCustomer.id==customer.id)}">
+						<h:commandLink value="Update"
+							actionListener="#{listCustomerBean.updateCustomer}">
+							<f:setPropertyActionListener
+								target="#{listCustomerBean.selectedCustomer}" value="#{customer}" />
+						</h:commandLink>
+					</h:panelGroup>
+					<h:commandLink value="Save"
+						actionListener="#{listCustomerBean.saveCustomer}"
+						rendered="#{listCustomerBean.edit and listCustomerBean.selectedCustomer.id==customer.id}">
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

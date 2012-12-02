@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/WEB-INF/template/template.xhtml">
+		<ui:define name="pageHeader">WiMM</ui:define>
+		<ui:define name="content">
+			<h:form styleClass="form-horizontal" prependId="false">
+				<p:outputPanel id="addPanel">
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Username
+							(use test):</label>
+						<div class="controls">
+							<h:inputText value="#{loginBean.username}" id="inputEmail" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputPassword">Password
+							(use test):</label>
+						<div class="controls">
+							<h:inputSecret value="#{loginBean.password}" id="inputPassword" />
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<p:commandButton value="Log in" action="#{loginBean.userLogin}"
+								update="addPanel" />
+							<h:panelGroup rendered="#{loginBean.loginFailed}"
+								styleClass="text-error">
+								Login Failed
+							</h:panelGroup>
+						</div>
+					</div>
+				</p:outputPanel>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

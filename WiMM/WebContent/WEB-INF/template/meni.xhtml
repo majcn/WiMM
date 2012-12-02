@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+
+</h:head>
+<h:body>
+	<ui:composition>
+		<ul class="nav">
+			<li><h:link outcome="/customer/addCustomer.xhtml">Add Customer</h:link></li>
+			<li><h:link outcome="/customer/listCustomer.xhtml">List Customers</h:link></li>
+		</ul>
+		<div class="navbar-form pull-right loginLink">
+			<h:panelGroup rendered="#{loggedInUserBean.loggedInUser == null}">
+				<h:link outcome="/login/login.xhtml">Login</h:link>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{loggedInUserBean.loggedInUser != null}">
+				Welcome #{loggedInUserBean.loggedInUser.name} #{loggedInUserBean.loggedInUser.surname}
+			</h:panelGroup>
+		</div>
+	</ui:composition>
+</h:body>
+
+</html>

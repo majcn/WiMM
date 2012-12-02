@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="pageHeader">WiMM</ui:define>
+	<ui:define name="content">
+		<h:form styleClass="form-horizontal">
+			<p:outputPanel id="addPanel">
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">Name*:</label>
+					<div class="controls">
+						<p:inputText value="#{addCustomerBean.name}" id="name"
+							label="Name" validatorMessage="Invalid name format">
+							<f:validateLength minimum="2" maximum="50" />
+						</p:inputText>
+						<p:message for="name" id="msgName" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">Surname*:</label>
+					<div class="controls">
+						<p:inputText value="#{addCustomerBean.surname}" id="surname"
+							label="Surname" validatorMessage="Invalid surname format">
+							<f:validateLength minimum="2" maximum="50" />
+						</p:inputText>
+						<p:message for="surname" id="msgSurname" />
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<p:commandButton value="Add Customer"
+							action="#{addCustomerBean.addCustomer}" update="addPanel" />
+					</div>
+				</div>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
