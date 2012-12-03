@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:msg="http://www.example.org/messages" xmlns:s="http://www.example.org/businessSchemas" elementFormDefault="qualified" targetNamespace="http://www.example.org/messages">    
+    <!-- Define our response type -->
+    <complexType name="GetInvoiceResponseType">
+        <sequence>
+            <element name="invoice" type="s:InvoiceEntityType"/>
+        </sequence>
+    </complexType>
+    <!-- Define a response element we can use in the WSDL -->
+    <element name="getInvoiceResponse" type="msg:GetInvoiceResponseType"/>
+</schema>

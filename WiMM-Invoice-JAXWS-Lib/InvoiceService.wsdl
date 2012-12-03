@@ -5,22 +5,56 @@
             <xsd:import namespace="http://www.example.org/messages" schemaLocation="AddInvoiceRequest.xsd"/>
             <xsd:import namespace="http://www.example.org/messages" schemaLocation="AddInvoiceResponse.xsd"/>
             <xsd:import namespace="http://www.example.org/messages" schemaLocation="AddInvoiceFault.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="DeleteInvoiceRequest.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="DeleteInvoiceResponse.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="DeleteInvoiceFault.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceRequest.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceResponse.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceFault.xsd"/>
         </xsd:schema>
     </wsdl:types>
-        <wsdl:message name="addInvoiceFault">
-            <wsdl:part name="addInvoiceFault" element="xsd1:addInvoiceFault"/>
-        </wsdl:message>
-            <wsdl:message name="addInvoiceRequest">
+    <wsdl:message name="addInvoiceFault">
+        <wsdl:part name="addInvoiceFault" element="xsd1:addInvoiceFault"/>
+    </wsdl:message>
+    <wsdl:message name="addInvoiceRequest">
         <wsdl:part name="addInvoiceInput" element="xsd1:addInvoiceRequest"/>
     </wsdl:message>
     <wsdl:message name="addInvoiceResponse">
         <wsdl:part name="addInvoiceOutput" element="xsd1:addInvoiceResponse"/>
+    </wsdl:message>
+    <wsdl:message name="deleteInvoiceFault">
+        <wsdl:part name="deleteInvoiceFault" element="xsd1:deleteInvoiceFault"/>
+    </wsdl:message>
+    <wsdl:message name="deleteInvoiceRequest">
+        <wsdl:part name="addInvoiceInput" element="xsd1:deleteInvoiceRequest"/>
+    </wsdl:message>
+    <wsdl:message name="deleteInvoiceResponse">
+        <wsdl:part name="deleteInvoiceOutput" element="xsd1:deleteInvoiceResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getInvoiceFault">
+        <wsdl:part name="getInvoiceFault" element="xsd1:getInvoiceFault"/>
+    </wsdl:message>
+    <wsdl:message name="getInvoiceRequest">
+        <wsdl:part name="getInvoiceInput" element="xsd1:getInvoiceRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getInvoiceResponse">
+        <wsdl:part name="getInvoiceOutput" element="xsd1:getInvoiceResponse"/>
     </wsdl:message>
     <wsdl:portType name="InvoiceService">
         <wsdl:operation name="addInvoice">
             <wsdl:input message="fri:addInvoiceRequest"/>
             <wsdl:output message="fri:addInvoiceResponse"/>
             <wsdl:fault name="fault" message="fri:addInvoiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="deleteInvoice">
+            <wsdl:input message="fri:deleteInvoiceRequest"/>
+            <wsdl:output message="fri:deleteInvoiceResponse"/>
+            <wsdl:fault name="fault" message="fri:deleteInvoiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getInvoice">
+            <wsdl:input message="fri:getInvoiceRequest"/>
+            <wsdl:output message="fri:getInvoiceResponse"/>
+            <wsdl:fault name="fault" message="fri:getInvoiceFault"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="InvoiceServiceSOAP" type="fri:InvoiceService">
