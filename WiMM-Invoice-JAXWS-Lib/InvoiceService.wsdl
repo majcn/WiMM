@@ -26,7 +26,7 @@
         <wsdl:part name="deleteInvoiceFault" element="xsd1:deleteInvoiceFault"/>
     </wsdl:message>
     <wsdl:message name="deleteInvoiceRequest">
-        <wsdl:part name="addInvoiceInput" element="xsd1:deleteInvoiceRequest"/>
+        <wsdl:part name="deleteInvoiceInput" element="xsd1:deleteInvoiceRequest"/>
     </wsdl:message>
     <wsdl:message name="deleteInvoiceResponse">
         <wsdl:part name="deleteInvoiceOutput" element="xsd1:deleteInvoiceResponse"/>
@@ -61,6 +61,24 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="addInvoice">
             <soap:operation soapAction="http://www.example.org/InvoiceService/addInvoice"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteInvoice">
+            <soap:operation soapAction="http://www.example.org/InvoiceService/deleteInvoice"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getInvoice">
+            <soap:operation soapAction="http://www.example.org/InvoiceService/getInvoice"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

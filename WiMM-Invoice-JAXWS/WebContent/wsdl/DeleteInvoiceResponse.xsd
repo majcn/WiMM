@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:msg="http://www.example.org/messages" xmlns:s="http://www.example.org/businessSchemas" elementFormDefault="qualified" targetNamespace="http://www.example.org/messages">    
+    <!-- Define our response type -->
+    <complexType name="DeleteInvoiceResponseType">
+        <sequence>
+            <element name="status" type="string"/>
+        </sequence>
+    </complexType>
+    <!-- Define a response element we can use in the WSDL -->
+    <element name="deleteInvoiceResponse" type="msg:DeleteInvoiceResponseType"/>
+</schema>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:msg="http://www.example.org/messages" xmlns:s="http://www.example.org/businessSchemas" elementFormDefault="qualified" targetNamespace="http://www.example.org/messages">    
+    <!-- Import our schema so we can use it -->
+    <import namespace="http://www.example.org/businessSchemas" schemaLocation="InvoiceFault.xsd"/>
+    <!-- Define our fault  type -->
+    <complexType name="DeleteInvoiceFaultType">
+        <sequence>
+            <element name="fault" type="s:InvoiceFaultType"/>
+        </sequence>
+    </complexType>
+    <!-- Define a fault element we can use in the WSDL -->
+    <element name="deleteInvoiceFault" type="msg:DeleteInvoiceFaultType"/>
+</schema>
