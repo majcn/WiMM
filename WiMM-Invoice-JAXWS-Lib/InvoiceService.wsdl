@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="InvoiceService" targetNamespace="http://www.example.org/InvoiceService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://www.example.org/messages" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:fri="http://www.example.org/InvoiceService/">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="AddInvoiceRequest.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="AddInvoiceResponse.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="AddInvoiceFault.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+        <wsdl:message name="addInvoiceFault">
+            <wsdl:part name="addInvoiceFault" element="xsd1:addInvoiceFault"/>
+        </wsdl:message>
+            <wsdl:message name="addInvoiceRequest">
+        <wsdl:part name="addInvoiceInput" element="xsd1:addInvoiceRequest"/>
+    </wsdl:message>
+    <wsdl:message name="addInvoiceResponse">
+        <wsdl:part name="addInvoiceOutput" element="xsd1:addInvoiceResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="InvoiceService">
+        <wsdl:operation name="addInvoice">
+            <wsdl:input message="fri:addInvoiceRequest"/>
+            <wsdl:output message="fri:addInvoiceResponse"/>
+            <wsdl:fault name="fault" message="fri:addInvoiceFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="InvoiceServiceSOAP" type="fri:InvoiceService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="addInvoice">
+            <soap:operation soapAction="http://www.example.org/InvoiceService/addInvoice"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="InvoiceService">
+        <wsdl:port name="InvoiceServiceSOAP" binding="fri:InvoiceServiceSOAP">
+            <soap:address location="http://www.example.org/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
