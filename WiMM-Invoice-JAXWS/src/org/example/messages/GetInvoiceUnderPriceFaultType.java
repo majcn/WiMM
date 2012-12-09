@@ -5,20 +5,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import org.example.businessschemas.InvoiceEntityType;
+import org.example.businessschemas.InvoiceFaultType;
 
 
 /**
- * <p>Java class for GetInvoiceResponseType complex type.
+ * <p>Java class for GetInvoiceUnderPriceFaultType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GetInvoiceResponseType">
+ * &lt;complexType name="GetInvoiceUnderPriceFaultType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="invoice" type="{http://www.example.org/businessSchemas}InvoiceEntityType"/>
+ *         &lt;element name="fault" type="{http://www.example.org/businessSchemas}InvoiceFaultType"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -28,36 +28,36 @@ import org.example.businessschemas.InvoiceEntityType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetInvoiceResponseType", propOrder = {
-    "invoice"
+@XmlType(name = "GetInvoiceUnderPriceFaultType", propOrder = {
+    "fault"
 })
-public class GetInvoiceResponseType {
+public class GetInvoiceUnderPriceFaultType {
 
     @XmlElement(required = true)
-    protected InvoiceEntityType invoice;
+    protected InvoiceFaultType fault;
 
     /**
-     * Gets the value of the invoice property.
+     * Gets the value of the fault property.
      * 
      * @return
      *     possible object is
-     *     {@link InvoiceEntityType }
+     *     {@link InvoiceFaultType }
      *     
      */
-    public InvoiceEntityType getInvoice() {
-        return invoice;
+    public InvoiceFaultType getFault() {
+        return fault;
     }
 
     /**
-     * Sets the value of the invoice property.
+     * Sets the value of the fault property.
      * 
      * @param value
      *     allowed object is
-     *     {@link InvoiceEntityType }
+     *     {@link InvoiceFaultType }
      *     
      */
-    public void setInvoice(InvoiceEntityType value) {
-        this.invoice = value;
+    public void setFault(InvoiceFaultType value) {
+        this.fault = value;
     }
 
 }

@@ -2,11 +2,11 @@
     <!-- Import our schema so we can use it -->
     <import namespace="http://www.example.org/businessSchemas" schemaLocation="InvoiceFault.xsd"/>
     <!-- Define our fault  type -->
-    <complexType name="GetInvoiceFaultType">
+    <complexType name="GetInvoiceUnderPriceFaultType">
         <sequence>
             <element name="fault" type="s:InvoiceFaultType"/>
         </sequence>
     </complexType>
     <!-- Define a fault element we can use in the WSDL -->
-    <element name="getInvoiceFault" type="msg:GetInvoiceFaultType"/>
+    <element name="getInvoiceUnderPriceFault" type="msg:GetInvoiceUnderPriceFaultType"/>
 </schema>

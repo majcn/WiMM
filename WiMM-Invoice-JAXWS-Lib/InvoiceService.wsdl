@@ -8,9 +8,9 @@
             <xsd:import namespace="http://www.example.org/messages" schemaLocation="DeleteInvoiceRequest.xsd"/>
             <xsd:import namespace="http://www.example.org/messages" schemaLocation="DeleteInvoiceResponse.xsd"/>
             <xsd:import namespace="http://www.example.org/messages" schemaLocation="DeleteInvoiceFault.xsd"/>
-            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceRequest.xsd"/>
-            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceResponse.xsd"/>
-            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceFault.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceUnderPriceRequest.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceUnderPriceResponse.xsd"/>
+            <xsd:import namespace="http://www.example.org/messages" schemaLocation="GetInvoiceUnderPriceFault.xsd"/>
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="addInvoiceFault">
@@ -31,14 +31,14 @@
     <wsdl:message name="deleteInvoiceResponse">
         <wsdl:part name="deleteInvoiceOutput" element="xsd1:deleteInvoiceResponse"/>
     </wsdl:message>
-    <wsdl:message name="getInvoiceFault">
-        <wsdl:part name="getInvoiceFault" element="xsd1:getInvoiceFault"/>
+    <wsdl:message name="getInvoiceUnderPriceFault">
+        <wsdl:part name="getInvoiceUnderPriceFault" element="xsd1:getInvoiceUnderPriceFault"/>
     </wsdl:message>
-    <wsdl:message name="getInvoiceRequest">
-        <wsdl:part name="getInvoiceInput" element="xsd1:getInvoiceRequest"/>
+    <wsdl:message name="getInvoiceUnderPriceRequest">
+        <wsdl:part name="getInvoiceUnderPriceInput" element="xsd1:getInvoiceUnderPriceRequest"/>
     </wsdl:message>
-    <wsdl:message name="getInvoiceResponse">
-        <wsdl:part name="getInvoiceOutput" element="xsd1:getInvoiceResponse"/>
+    <wsdl:message name="getInvoiceUnderPriceResponse">
+        <wsdl:part name="getInvoiceUnderPriceOutput" element="xsd1:getInvoiceUnderPriceResponse"/>
     </wsdl:message>
     <wsdl:portType name="InvoiceService">
         <wsdl:operation name="addInvoice">
@@ -51,10 +51,10 @@
             <wsdl:output message="fri:deleteInvoiceResponse"/>
             <wsdl:fault name="fault" message="fri:deleteInvoiceFault"/>
         </wsdl:operation>
-        <wsdl:operation name="getInvoice">
-            <wsdl:input message="fri:getInvoiceRequest"/>
-            <wsdl:output message="fri:getInvoiceResponse"/>
-            <wsdl:fault name="fault" message="fri:getInvoiceFault"/>
+        <wsdl:operation name="getInvoiceUnderPrice">
+            <wsdl:input message="fri:getInvoiceUnderPriceRequest"/>
+            <wsdl:output message="fri:getInvoiceUnderPriceResponse"/>
+            <wsdl:fault name="fault" message="fri:getInvoiceUnderPriceFault"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="InvoiceServiceSOAP" type="fri:InvoiceService">
@@ -77,8 +77,8 @@
                 <soap:body use="literal"/>
             </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="getInvoice">
-            <soap:operation soapAction="http://www.example.org/InvoiceService/getInvoice"/>
+        <wsdl:operation name="getInvoiceUnderPrice">
+            <soap:operation soapAction="http://www.example.org/InvoiceService/getInvoiceUnderPrice"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

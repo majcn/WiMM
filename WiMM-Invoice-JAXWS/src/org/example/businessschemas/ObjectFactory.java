@@ -30,11 +30,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MultiFullInvoiceEntityType }
+     * 
+     */
+    public MultiFullInvoiceEntityType createMultiFullInvoiceEntityType() {
+        return new MultiFullInvoiceEntityType();
+    }
+
+    /**
      * Create an instance of {@link InvoiceEntityType }
      * 
      */
     public InvoiceEntityType createInvoiceEntityType() {
         return new InvoiceEntityType();
+    }
+
+    /**
+     * Create an instance of {@link FullInvoiceEntityType }
+     * 
+     */
+    public FullInvoiceEntityType createFullInvoiceEntityType() {
+        return new FullInvoiceEntityType();
     }
 
     /**

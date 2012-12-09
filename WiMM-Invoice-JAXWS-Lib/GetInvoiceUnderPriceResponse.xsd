@@ -2,12 +2,12 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:msg="http://www.example.org/messages" xmlns:s="http://www.example.org/businessSchemas" elementFormDefault="qualified" targetNamespace="http://www.example.org/messages">    
     <!-- Import our schema so we can use it -->
     <import namespace="http://www.example.org/businessSchemas" schemaLocation="InvoiceEntity.xsd"/>
-    <!-- Define our request type -->
-    <complexType name="GetInvoiceRequestType">
+    <!-- Define our response type -->
+    <complexType name="GetInvoiceUnderPriceResponseType">
         <sequence>
-            <element name="invoice" type="s:InvoiceEntityType"/>
+            <element name="invoices" type="s:MultiFullInvoiceEntityType"/>
         </sequence>
     </complexType>
-    <!-- Define a request element we can use in the WSDL -->
-    <element name="getInvoiceRequest" type="msg:GetInvoiceRequestType"/>
+    <!-- Define a response element we can use in the WSDL -->
+    <element name="getInvoiceUnderPriceResponse" type="msg:GetInvoiceUnderPriceResponseType"/>
 </schema>

@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.org/businessSchemas">
+<schema xmlns:s="http://www.example.org/businessSchemas" xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.org/businessSchemas">
     <!-- Type definition -->
     <complexType name="InvoiceEntityType">
         <sequence>
-            <element name="barcode" type="string"/>
-            <element name="price" type="float"/>
+            <element name="shopname" type="string" />
+            <element name="shopvat" type="string" />
+            <element name="itembarcode" type="string" />
+            <element name="itemprice" type="float" />
+            <element name="itemquantity" type="int" />
+            <element name="date" type="date" />
+        </sequence>
+    </complexType>
+    
+    <complexType name="FullInvoiceEntityType">
+        <complexContent>
+            <extension base="s:InvoiceEntityType">
+                <sequence>
+                    <element name="id" type="string" />
+                    <element name="ownerId" type="string" />
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <complexType name="MultiFullInvoiceEntityType">
+        <sequence>
+            <element name="invoices" type="s:FullInvoiceEntityType" maxOccurs="unbounded" />
         </sequence>
     </complexType>
 </schema>

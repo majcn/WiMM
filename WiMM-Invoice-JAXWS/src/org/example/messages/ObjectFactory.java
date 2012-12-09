@@ -24,21 +24,29 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetInvoiceResponse_QNAME = new QName("http://www.example.org/messages", "getInvoiceResponse");
     private final static QName _DeleteInvoiceFault_QNAME = new QName("http://www.example.org/messages", "deleteInvoiceFault");
     private final static QName _DeleteInvoiceResponse_QNAME = new QName("http://www.example.org/messages", "deleteInvoiceResponse");
     private final static QName _AddInvoiceResponse_QNAME = new QName("http://www.example.org/messages", "addInvoiceResponse");
-    private final static QName _GetInvoiceFault_QNAME = new QName("http://www.example.org/messages", "getInvoiceFault");
+    private final static QName _GetInvoiceUnderPriceRequest_QNAME = new QName("http://www.example.org/messages", "getInvoiceUnderPriceRequest");
     private final static QName _AddInvoiceRequest_QNAME = new QName("http://www.example.org/messages", "addInvoiceRequest");
     private final static QName _AddInvoiceFault_QNAME = new QName("http://www.example.org/messages", "addInvoiceFault");
     private final static QName _DeleteInvoiceRequest_QNAME = new QName("http://www.example.org/messages", "deleteInvoiceRequest");
-    private final static QName _GetInvoiceRequest_QNAME = new QName("http://www.example.org/messages", "getInvoiceRequest");
+    private final static QName _GetInvoiceUnderPriceResponse_QNAME = new QName("http://www.example.org/messages", "getInvoiceUnderPriceResponse");
+    private final static QName _GetInvoiceUnderPriceFault_QNAME = new QName("http://www.example.org/messages", "getInvoiceUnderPriceFault");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.example.messages
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link GetInvoiceUnderPriceFaultType }
+     * 
+     */
+    public GetInvoiceUnderPriceFaultType createGetInvoiceUnderPriceFaultType() {
+        return new GetInvoiceUnderPriceFaultType();
     }
 
     /**
@@ -66,19 +74,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetInvoiceRequestType }
+     * Create an instance of {@link GetInvoiceUnderPriceResponseType }
      * 
      */
-    public GetInvoiceRequestType createGetInvoiceRequestType() {
-        return new GetInvoiceRequestType();
+    public GetInvoiceUnderPriceResponseType createGetInvoiceUnderPriceResponseType() {
+        return new GetInvoiceUnderPriceResponseType();
     }
 
     /**
-     * Create an instance of {@link GetInvoiceFaultType }
+     * Create an instance of {@link GetInvoiceUnderPriceRequestType }
      * 
      */
-    public GetInvoiceFaultType createGetInvoiceFaultType() {
-        return new GetInvoiceFaultType();
+    public GetInvoiceUnderPriceRequestType createGetInvoiceUnderPriceRequestType() {
+        return new GetInvoiceUnderPriceRequestType();
     }
 
     /**
@@ -98,28 +106,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetInvoiceResponseType }
-     * 
-     */
-    public GetInvoiceResponseType createGetInvoiceResponseType() {
-        return new GetInvoiceResponseType();
-    }
-
-    /**
      * Create an instance of {@link DeleteInvoiceFaultType }
      * 
      */
     public DeleteInvoiceFaultType createDeleteInvoiceFaultType() {
         return new DeleteInvoiceFaultType();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetInvoiceResponseType }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://www.example.org/messages", name = "getInvoiceResponse")
-    public JAXBElement<GetInvoiceResponseType> createGetInvoiceResponse(GetInvoiceResponseType value) {
-        return new JAXBElement<GetInvoiceResponseType>(_GetInvoiceResponse_QNAME, GetInvoiceResponseType.class, null, value);
     }
 
     /**
@@ -150,12 +141,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetInvoiceFaultType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetInvoiceUnderPriceRequestType }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.example.org/messages", name = "getInvoiceFault")
-    public JAXBElement<GetInvoiceFaultType> createGetInvoiceFault(GetInvoiceFaultType value) {
-        return new JAXBElement<GetInvoiceFaultType>(_GetInvoiceFault_QNAME, GetInvoiceFaultType.class, null, value);
+    @XmlElementDecl(namespace = "http://www.example.org/messages", name = "getInvoiceUnderPriceRequest")
+    public JAXBElement<GetInvoiceUnderPriceRequestType> createGetInvoiceUnderPriceRequest(GetInvoiceUnderPriceRequestType value) {
+        return new JAXBElement<GetInvoiceUnderPriceRequestType>(_GetInvoiceUnderPriceRequest_QNAME, GetInvoiceUnderPriceRequestType.class, null, value);
     }
 
     /**
@@ -186,12 +177,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetInvoiceRequestType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetInvoiceUnderPriceResponseType }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.example.org/messages", name = "getInvoiceRequest")
-    public JAXBElement<GetInvoiceRequestType> createGetInvoiceRequest(GetInvoiceRequestType value) {
-        return new JAXBElement<GetInvoiceRequestType>(_GetInvoiceRequest_QNAME, GetInvoiceRequestType.class, null, value);
+    @XmlElementDecl(namespace = "http://www.example.org/messages", name = "getInvoiceUnderPriceResponse")
+    public JAXBElement<GetInvoiceUnderPriceResponseType> createGetInvoiceUnderPriceResponse(GetInvoiceUnderPriceResponseType value) {
+        return new JAXBElement<GetInvoiceUnderPriceResponseType>(_GetInvoiceUnderPriceResponse_QNAME, GetInvoiceUnderPriceResponseType.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetInvoiceUnderPriceFaultType }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.example.org/messages", name = "getInvoiceUnderPriceFault")
+    public JAXBElement<GetInvoiceUnderPriceFaultType> createGetInvoiceUnderPriceFault(GetInvoiceUnderPriceFaultType value) {
+        return new JAXBElement<GetInvoiceUnderPriceFaultType>(_GetInvoiceUnderPriceFault_QNAME, GetInvoiceUnderPriceFaultType.class, null, value);
     }
 
 }

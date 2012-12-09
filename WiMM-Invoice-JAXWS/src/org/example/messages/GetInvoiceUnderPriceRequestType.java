@@ -5,20 +5,19 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import org.example.businessschemas.InvoiceEntityType;
 
 
 /**
- * <p>Java class for GetInvoiceRequestType complex type.
+ * <p>Java class for GetInvoiceUnderPriceRequestType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="GetInvoiceRequestType">
+ * &lt;complexType name="GetInvoiceUnderPriceRequestType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="invoice" type="{http://www.example.org/businessSchemas}InvoiceEntityType"/>
+ *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}integer"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -28,36 +27,36 @@ import org.example.businessschemas.InvoiceEntityType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetInvoiceRequestType", propOrder = {
-    "invoice"
+@XmlType(name = "GetInvoiceUnderPriceRequestType", propOrder = {
+    "price"
 })
-public class GetInvoiceRequestType {
+public class GetInvoiceUnderPriceRequestType {
 
     @XmlElement(required = true)
-    protected InvoiceEntityType invoice;
+    protected Integer price;
 
     /**
-     * Gets the value of the invoice property.
+     * Gets the value of the price property.
      * 
      * @return
      *     possible object is
-     *     {@link InvoiceEntityType }
+     *     {@link Integer }
      *     
      */
-    public InvoiceEntityType getInvoice() {
-        return invoice;
+    public Integer getPrice() {
+        return price;
     }
 
     /**
-     * Sets the value of the invoice property.
+     * Sets the value of the price property.
      * 
      * @param value
      *     allowed object is
-     *     {@link InvoiceEntityType }
+     *     {@link Integer }
      *     
      */
-    public void setInvoice(InvoiceEntityType value) {
-        this.invoice = value;
+    public void setPrice(Integer value) {
+        this.price = value;
     }
 
 }

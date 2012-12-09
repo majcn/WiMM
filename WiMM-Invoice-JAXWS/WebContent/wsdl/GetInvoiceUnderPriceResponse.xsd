@@ -2,11 +2,11 @@
     <!-- Import our schema so we can use it -->
     <import namespace="http://www.example.org/businessSchemas" schemaLocation="InvoiceEntity.xsd"/>
     <!-- Define our response type -->
-    <complexType name="GetInvoiceResponseType">
+    <complexType name="GetInvoiceUnderPriceResponseType">
         <sequence>
-            <element name="invoice" type="s:InvoiceEntityType"/>
+            <element name="invoices" type="s:MultiFullInvoiceEntityType"/>
         </sequence>
     </complexType>
     <!-- Define a response element we can use in the WSDL -->
-    <element name="getInvoiceResponse" type="msg:GetInvoiceResponseType"/>
+    <element name="getInvoiceUnderPriceResponse" type="msg:GetInvoiceUnderPriceResponseType"/>
 </schema>
