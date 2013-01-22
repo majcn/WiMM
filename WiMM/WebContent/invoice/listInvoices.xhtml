@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="pageHeader">WiMM</ui:define>
+	<ui:define name="content">
+	  <h:form id="form">  
+         <p:growl id="messages" showDetail="true"/>  
+        <p:dataTable id="addedInvoices" var="invoice" value="#{invoiceBean.invoices}" editable="true" rowIndexVar="rowIndex"> 
+        <p:ajax event="rowEdit" update=":form:messages" listener="#{invoiceBean.posodobi(invoice)}"/> 
+       
+                <p:column headerText="InvoiceId">     
+                <h:outputText value="#{invoice.invoiceId}"/>  
+            </p:column> 
+                <p:column headerText="Company">
+                <p:cellEditor>
+                    <f:facet name="output">
+                <h:outputText value="#{invoice.company}" />
+                </f:facet>
+                <f:facet name="input">
+                <h:inputText value="#{invoice.company}"/>
+                </f:facet>
+                 </p:cellEditor>         
+            </p:column>  
+            <p:column headerText="Shop name"> 
+             <p:cellEditor>
+                    <f:facet name="output">
+                <h:outputText value="#{invoice.shopName}" />
+                </f:facet>
+                <f:facet name="input">
+                 <h:inputText value="#{invoice.shopName}"/>
+                </f:facet>
+                 </p:cellEditor>  
+               
+            </p:column>
+            <p:column headerText="Address"> 
+             <p:cellEditor>
+                    <f:facet name="output">
+                <h:outputText value="#{invoice.address}" />
+                </f:facet>
+                <f:facet name="input">
+                 <h:inputText value="#{invoice.address}"/>
+                </f:facet>
+                 </p:cellEditor>  
+               
+            </p:column>  
+          
+            <p:column headerText="Invoice number"> 
+             <p:cellEditor>
+                    <f:facet name="output">
+                <h:outputText value="#{invoice.invoiceNumber}" />
+                </f:facet>
+                <f:facet name="input">
+                 <h:inputText value="#{invoice.invoiceNumber}"/>
+                </f:facet>
+                 </p:cellEditor>  
+            </p:column>
+            <p:column headerText="Date"> 
+             <p:cellEditor>
+                    <f:facet name="output">
+                  <h:outputText value="#{invoice.date}" />  
+                </f:facet>
+                <f:facet name="input">
+                 <p:calendar value="#{invoice.date}" id="popupCal" />
+                </f:facet>
+                 </p:cellEditor>  
+               
+            </p:column> 
+            <p:column headerText="Status"> 
+             <p:cellEditor>
+                    <f:facet name="output">
+                <h:outputText value="#{invoice.status}" />
+                </f:facet>
+                <f:facet name="input">
+                 <h:inputText value="#{invoice.status}"/>
+                </f:facet>
+                 </p:cellEditor>  
+            </p:column>    
+           
+          
+             
+        <p:column headerText="Total price"> 
+             <p:cellEditor>
+                    <f:facet name="output">
+                <h:outputText value="#{invoice.totalprice}" />
+                </f:facet>
+                <f:facet name="input">
+                 <h:inputText value="#{invoice.totalprice}"/>
+                </f:facet>
+                 </p:cellEditor>  
+               
+            </p:column> 
+             <p:column headerText="Edit">
+            <p:rowEditor />
+            </p:column>
+            <p:column headerText="Remove">
+            <p:commandButton icon="ui-icon-close" title="remove"
+                       actionListener="#{invoiceBean.removeInvoice(invoice)}" update="addedInvoices" ajax="false" />
+            </p:column> 
+            
+            <p:column>
+            
+            <p:dataTable var="item" value="#{invoice.items}">  
+            <p:column headerText="Item name">  
+                 <h:outputText value="#{item.itemname}" />  
+                 
+            </p:column> 
+              
+            <p:column headerText="Item price">  
+                 <h:outputText value="#{item.itemprice}" />  
+                 
+            </p:column>  
+             <p:column headerText="Item quantity">  
+                 <h:outputText value="#{item.itemquantity}" />  
+                 
+            </p:column> 
+             <p:column headerText="Item valute">  
+                 <h:outputText value="#{item.itemvalue}" />  
+                 
+            </p:column> 
+             
+        </p:dataTable>
+            </p:column>
+        </p:dataTable>
+          
+    </h:form>
+	</ui:define>
+	
+</ui:composition>
+</html>

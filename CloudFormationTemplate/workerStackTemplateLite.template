@@ -1,0 +1,291 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "LIIS RSO Template for Java Worker: Creates a multi-az, Auto Scaled worker that pulls command messages from a queue and execs the command. The application is Auto-Scaled based on the amount of work in the queue.",
+
+  "Parameters" : {
+    "InstanceType" : {
+      "Description" : "Worker EC2 instance type",
+      "Type" : "String",
+      "Default" : "t1.micro",
+      "AllowedValues" : [ "t1.micro","m1.small","m1.medium","m1.large","m1.xlarge","m2.xlarge","m2.2xlarge","m2.4xlarge","c1.medium","c1.xlarge","cc1.4xlarge","cc2.8xlarge","cg1.4xlarge"],
+      "ConstraintDescription" : "must be a valid EC2 instance type."
+    },
+
+    "KeyName" : {
+      "Description" : "The EC2 Key Pair to allow SSH access to the instances",
+      "Type" : "String"
+    },
+	
+	"MinInstances" : {
+      "Description" : "The minimum number of Workers",
+      "Type" : "Number",
+      "MinValue" : "0",
+      "Default"  : "1",
+      "ConstraintDescription" : "Enter a number >=0"
+    },
+
+    "MaxInstances" : {
+      "Description" : "The maximum number of Workers",
+      "Type" : "Number",
+      "MinValue" : "1",
+      "Default"  : "3",
+      "ConstraintDescription" : "Enter a number >=1"
+    },
+
+	"WorkerJarFileUrl" : {
+		"Description" : "WorkerJarFile Url",
+		"Type" : "String",
+		"ConstraintDescription" : "Enter correct URL!"
+	}
+  },
+
+  "Mappings" : {
+    "AWSInstanceType2Arch" : {
+      "t1.micro"    : { "Arch" : "64" },
+      "m1.small"    : { "Arch" : "64" },
+      "m1.medium"   : { "Arch" : "64" },
+      "m1.large"    : { "Arch" : "64" },
+      "m1.xlarge"   : { "Arch" : "64" },
+      "m2.xlarge"   : { "Arch" : "64" },
+      "m2.2xlarge"  : { "Arch" : "64" },
+      "m2.4xlarge"  : { "Arch" : "64" },
+      "c1.medium"   : { "Arch" : "64" },
+      "c1.xlarge"   : { "Arch" : "64" },
+      "cc1.4xlarge" : { "Arch" : "64HVM" },
+      "cc2.8xlarge" : { "Arch" : "64HVM" },
+      "cg1.4xlarge" : { "Arch" : "64HVM" }
+    },
+
+    "AWSRegionArch2AMI" : {
+      "us-east-1"      : { "32" : "ami-31814f58", "64" : "ami-1b814f72", "64HVM" : "ami-0da96764" },
+      "us-west-2"      : { "32" : "ami-38fe7308", "64" : "ami-30fe7300", "64HVM" : "NOT_YET_SUPPORTED" },
+      "us-west-1"      : { "32" : "ami-11d68a54", "64" : "ami-1bd68a5e", "64HVM" : "NOT_YET_SUPPORTED" },
+      "eu-west-1"      : { "32" : "ami-973b06e3", "64" : "ami-953b06e1", "64HVM" : "NOT_YET_SUPPORTED" },
+      "ap-southeast-1" : { "32" : "ami-b4b0cae6", "64" : "ami-beb0caec", "64HVM" : "NOT_YET_SUPPORTED" },
+      "ap-northeast-1" : { "32" : "ami-0644f007", "64" : "ami-0a44f00b", "64HVM" : "NOT_YET_SUPPORTED" },
+      "sa-east-1"      : { "32" : "ami-3e3be423", "64" : "ami-3c3be421", "64HVM" : "NOT_YET_SUPPORTED" }
+    }
+  },
+
+  "Resources" : {
+
+    "WorkerUser" : {
+      "Type" : "AWS::IAM::User",
+      "Properties" : {
+        "Path": "/",
+        "Policies": [{
+          "PolicyName": "root",
+          "PolicyDocument": { "Statement":[{
+            "Effect": "Allow",
+            "Action": [
+              "cloudformation:DescribeStackResource",
+              "sqs:ReceiveMessage",
+              "sqs:DeleteMessage", 
+              "sns:Publish"
+            ],
+            "Resource": "*"
+          }]}
+        }]
+      }
+    },
+
+    "WorkerKeys" : {
+      "Type" : "AWS::IAM::AccessKey",
+      "Properties" : {
+        "UserName" : {"Ref": "WorkerUser"}
+      }
+    },
+
+    "InputQueue" : {
+      "Type" : "AWS::SQS::Queue"
+    },
+
+    "InputQueuePolicy" : {
+      "Type" : "AWS::SQS::QueuePolicy",
+      "DependsOn" : "LaunchConfig",
+      "Properties" : {       
+        "Queues" : [ { "Ref" : "InputQueue" } ],
+        "PolicyDocument":  {
+          "Version": "2008-10-17",
+          "Id": "ReadFromQueuePolicy",
+          "Statement" : [ {
+            "Sid": "ConsumeMessages",
+            "Effect": "Allow",          
+            "Principal" : { "AWS": {"Fn::GetAtt" : ["WorkerUser", "Arn"]} },
+            "Action": [ "SQS:GetQueueAttributes",
+						"SQS:GetQueueUrl",
+						"SQS:ReceiveMessage",
+						"SQS:ChangeMessageVisibility",
+						"SQS:DeleteMessage",
+						"SQS:SendMessage"],
+            "Resource": { "Fn::GetAtt" : [ "InputQueue", "Arn" ] }
+          } ]
+        }
+      }
+    },
+			
+	
+	"LogSNSTopic" : {
+		"Type" : "AWS::SNS::Topic"
+	},
+	"LogSNSTopicPolicy" : {
+	   "Type" : "AWS::SNS::TopicPolicy",
+	   "DependsOn" : "LaunchConfig",
+	   "Properties" : {
+		  "PolicyDocument" :  {
+			 "Version": "2008-10-17",
+			"Id": "ReadFromTopicPolicy",
+			  "Statement": [
+				{
+				  "Sid": "ConsumeTopics", 
+				  "Effect": "Allow",
+				  "Principal": { "AWS": {"Fn::GetAtt" : ["WorkerUser", "Arn"]} },
+				  "Action": [
+					"SNS:Publish",
+					"SNS:RemovePermission",
+					"SNS:SetTopicAttributes",
+					"SNS:DeleteTopic",
+					"SNS:ListSubscriptionsByTopic",
+					"SNS:GetTopicAttributes",
+					"SNS:Receive",
+					"SNS:AddPermission",
+					"SNS:Subscribe"
+				  ],
+				  "Resource": "*"
+				}
+			  ]
+		  },
+		  "Topics" : [ { "Ref" : "LogSNSTopic" } ] 
+	   }
+	},
+	
+    "InstanceSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable SSH access",
+        "SecurityGroupIngress" : [ { "IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : "0.0.0.0/0" } ]
+      }
+    },
+
+    "LaunchConfig" : {
+      "Type" : "AWS::AutoScaling::LaunchConfiguration",
+      "Metadata" : {
+        "Comment" : "Run a jar on start",
+        "AWS::CloudFormation::Init" : {
+          "configSets" : {
+            "ALL" : ["JarFile"]
+          },
+          "JarFile":{
+			"files" : {
+				"/home/ec2-user/worker.jar" : {
+					"source" : { "Ref" : "WorkerJarFileUrl" },
+					"mode"   : "000400",
+					"owner"  : "ec2-user",
+					"group"  : "ec2-user"
+				}
+			}
+		  }
+		}
+      },
+      "Properties" : {
+        "KeyName" : { "Ref" : "KeyName" },
+        "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" },
+                                          { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "InstanceType" }, "Arch" ] } ] },
+        "SecurityGroups" : [ { "Ref" : "InstanceSecurityGroup" } ],
+        "InstanceType" : { "Ref" : "InstanceType" },
+        "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
+          "#!/bin/bash\n",
+		  "yum update -y aws-cfn-bootstrap\n",
+		  "# Turn on the logging of the console output to the system log\n",
+		  "exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1\n",
+		  "# Inititalize the cloud formation stack\n",
+          "/opt/aws/bin/cfn-init ",
+          "         --stack ", { "Ref" : "AWS::StackName" },
+          "         --resource LaunchConfig ",
+          "         --configset ALL",
+          "         --access-key ", { "Ref" : "WorkerKeys" },
+          "         --secret-key ", {"Fn::GetAtt": ["WorkerKeys", "SecretAccessKey"]},
+          "         --region ", { "Ref" : "AWS::Region" }, "\n",
+		  "# Run the Worker application\n",
+		  "cd /home/ec2-user/ \n",
+		  "java -jar worker.jar ",{ "Ref" : "WorkerKeys" }," ",{"Fn::GetAtt": ["WorkerKeys", "SecretAccessKey"]}," ",{ "Ref" : "InputQueue" }, " ",{ "Ref" : "LogSNSTopic" }
+        ]]}}        
+      }
+    },
+
+    "WorkerGroup" : {
+      "Type" : "AWS::AutoScaling::AutoScalingGroup",
+      "Properties" : {
+        "AvailabilityZones" : { "Fn::GetAZs" : ""},
+        "LaunchConfigurationName" : { "Ref" : "LaunchConfig" },
+        "MinSize" : { "Ref" : "MinInstances" },
+        "MaxSize" : { "Ref" : "MaxInstances" }
+      }
+    },
+
+    "WorkerScaleUpPolicy" : {
+      "Type" : "AWS::AutoScaling::ScalingPolicy",
+      "Properties" : {
+        "AdjustmentType" : "ChangeInCapacity",
+        "AutoScalingGroupName" : { "Ref" : "WorkerGroup" },
+        "Cooldown" : "60",
+        "ScalingAdjustment" : "1"
+      }
+    },
+
+    "WorkerScaleDownPolicy" : {
+      "Type" : "AWS::AutoScaling::ScalingPolicy",
+      "Properties" : {
+        "AdjustmentType" : "ChangeInCapacity",
+        "AutoScalingGroupName" : { "Ref" : "WorkerGroup" },
+        "Cooldown" : "60",
+        "ScalingAdjustment" : "-1"
+      }
+    },
+
+    "TooManyMessagesAlarm": {
+     "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Scale-Up if queue depth grows beyond 9 messages",
+        "Namespace": "AWS/SQS",
+        "MetricName": "ApproximateNumberOfMessagesVisible",
+        "Dimensions": [{ "Name": "QueueName", "Value" : { "Fn::GetAtt" : ["InputQueue", "QueueName"] } }],
+        "Statistic": "Sum",
+        "Period": "60",
+        "EvaluationPeriods": "1",
+        "Threshold": "9",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "AlarmActions": [ { "Ref": "WorkerScaleUpPolicy" } ]
+      }
+    },
+
+    "NotEnoughMessagesAlarm": {
+     "Type": "AWS::CloudWatch::Alarm",
+     "Properties": {
+        "AlarmDescription": "Scale-down if there are too many empty polls, indicating there is not enough work",
+        "Namespace": "AWS/SQS",
+        "MetricName": "NumberOfEmptyReceives",
+        "Dimensions": [{ "Name": "QueueName", "Value" : { "Fn::GetAtt" : ["InputQueue", "QueueName"] } }],
+        "Statistic": "Sum",
+        "Period": "60",
+        "EvaluationPeriods": "10",
+        "Threshold": "3",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "AlarmActions": [ { "Ref": "WorkerScaleDownPolicy" } ]
+      }
+    }
+  },
+
+  "Outputs" : {
+    "InputQueueURL" : {
+      "Description" : "URL of the worker input queue",
+      "Value" : { "Ref" : "InputQueue" }
+    },
+	
+	"LogSNSTopicURL" : {
+      "Description" : "URL of the worker SNS Topic",
+      "Value" : { "Ref" : "LogSNSTopic" }
+    }
+  }
+}

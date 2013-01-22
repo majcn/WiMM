@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="WiMM-Invoice-JAXWS">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="WiMM-Invoice-JAXWS-DynamoDB.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WiMM-Invoice-JAXWS-DynamoDB/WiMM-Invoice-JAXWS-DynamoDB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="WiMM-Invoice-JAXWS"/>
+        <property name="java-output-path" value="/WiMM-Invoice-JAXWS/build/classes"/>
+    </wb-module>
+</project-modules>

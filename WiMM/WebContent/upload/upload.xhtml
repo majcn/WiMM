@@ -16,6 +16,13 @@
     			<p:fileUpload value="#{uploadControllerBean.file}" mode="simple"/>  
  				<p:commandButton value="Submit" ajax="false"  
                 actionListener="#{uploadControllerBean.upload}"/>
+                <br></br>
+                <h3>Picture</h3>
+                <br></br>
+                <p:graphicImage value="#{uploadControllerBean.imageSrc}" />
+                <br></br>
+                <p:commandButton value="Get image" ajax="false"  
+                actionListener="#{uploadControllerBean.getImage}"/>
 			</h:form>
 		</ui:define>
 	</ui:composition>
